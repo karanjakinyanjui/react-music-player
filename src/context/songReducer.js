@@ -1,5 +1,30 @@
 import { v4 } from "uuid";
 
+const getNextSongIndex = (state) => {
+  const { playlistIndices, queuedSongs } = state;
+  const index = Math.floor(Math.random() * queuedSongs.length);
+
+  if (playlistIndices.length === queuedSongs.length) {
+    return {
+      ...state,
+      elapsed: 0,
+      playlistIndices: [index],
+      currentSong: queuedSongs[index],
+    };
+  }
+
+  if (playlistIndices.includes(index)) {
+    return getNextSongIndex(state);
+  }
+
+  return {
+    ...state,
+    elapsed: 0,
+    playlistIndices: [index, ...playlistIndices],
+    currentSong: queuedSongs[index],
+  };
+};
+
 export const songReducer = (state, { type, payload }) => {
   const currentSongIndex = state.queuedSongs.findIndex(
     (song) => state.currentSong.playlistId === song.playlistId
@@ -49,6 +74,16 @@ export const songReducer = (state, { type, payload }) => {
         ...state,
         seek: payload.seek,
       };
+    case "SET_VOLUME":
+      return {
+        ...state,
+        volume: payload.volume,
+      };
+    case "TOGGLE_MUTED":
+      return {
+        ...state,
+        muted: !state.muted,
+      };
     case "SET_CURRENT_SONG":
       return {
         ...state,
@@ -64,7 +99,18 @@ export const songReducer = (state, { type, payload }) => {
         elapsed: isCurrent ? state.elapsed : 0,
         playing: isCurrent ? !state.playing : true,
       };
+    case "TOGGLE_SHUFFLE":
+      return {
+        ...state,
+        shuffle: !state.shuffle,
+      };
+    case "SET_PLAYLIST_INDICES":
+      return {
+        ...state,
+        playlistIndices: payload.indices,
+      };
     case "GO_TO_NEXT_SONG":
+      if (state.shuffle) return getNextSongIndex(state);
       let nextIndex = currentSongIndex + 1;
       if (nextIndex >= state.queuedSongs.length) nextIndex = 0;
 
@@ -76,6 +122,8 @@ export const songReducer = (state, { type, payload }) => {
         currentSong: nextSong,
       };
     case "GO_TO_PREVIOUS_SONG":
+      if (state.shuffle) return getNextSongIndex(state);
+
       let prevIndex = currentSongIndex - 1;
       if (prevIndex < 0) prevIndex = state.queuedSongs.length - 1;
 

@@ -9,6 +9,8 @@ const QueuedSongList = () => {
 
   useEffect(() => {
     saveToLocalStorage("queuedSongs", queuedSongs);
+    // const indices = randomArray(queuedSongs.length);
+    // setPlaylistIndices(indices);
   }, [queuedSongs]);
 
   return (

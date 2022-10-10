@@ -24,17 +24,18 @@ const SongPlayer = () => {
             <Typography variant="h5" component="h3">
               {song.title}
             </Typography>
+
             <Typography variant="caption">{song.artist}</Typography>
-          </Stack>
-          <Stack padding={3} direction="row" alignItems="center">
-            <PlayerControls fontSize={55} />
             <Typography
               variant="subtitle1"
               component="span"
-              color="textSecondary"
+              color="text.secondary"
             >
               {new Date(1000 * song.duration || 0).toISOString().slice(11, 19)}
             </Typography>
+          </Stack>
+          <Stack padding={3} direction="row" alignItems="center">
+            <PlayerControls fontSize={55} />
           </Stack>
           <Stack padding={2}>
             <Seeker />

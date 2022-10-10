@@ -6,8 +6,17 @@ import { loadFromLocalStorage } from "../handlers/localStorage";
 export const SongProvider = ({ children }) => {
   const [state, dispatch] = useReducer(songReducer, {
     songs: [],
-    currentSong: {},
     queuedSongs: loadFromLocalStorage("queuedSongs", []),
+    currentSong: {},
+    currentSongIndex: 0,
+    elapsed: 0,
+    seek: 0,
+    playing: false,
+    dark: true,
+    volume: 0.5,
+    muted: false,
+    shuffle: false,
+    playlistIndices: [],
   });
 
   const setDark = () => {
@@ -50,6 +59,19 @@ export const SongProvider = ({ children }) => {
   const setSeek = (seek) => {
     dispatch({ type: "SET_SEEK", payload: { seek } });
   };
+  const setVolume = (volume) => {
+    dispatch({ type: "SET_VOLUME", payload: { volume } });
+  };
+  const toggleMuted = () => {
+    dispatch({ type: "TOGGLE_MUTED" });
+  };
+  const toggleShuffle = () => {
+    dispatch({ type: "TOGGLE_SHUFFLE" });
+  };
+
+  const setPlaylistIndices = (indices) => {
+    dispatch({ type: "SET_PLAYLIST_INDICES", payload: { indices } });
+  };
 
   return (
     <SongContext.Provider
@@ -67,6 +89,10 @@ export const SongProvider = ({ children }) => {
         goToPreviousSong,
         setElapsed,
         setSeek,
+        setVolume,
+        toggleMuted,
+        toggleShuffle,
+        setPlaylistIndices,
       }}
     >
       {children}

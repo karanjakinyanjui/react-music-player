@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { useSongContext } from "../context/songContext";
 import { PlayerControls } from "./PlayerControls";
 import Seeker from "./Seeker";
+import Volume from "./Volume";
 
 const formatTime = (seconds) => {
   const start = seconds >= 3600 ? 11 : 14;
@@ -36,6 +37,9 @@ const BottomSlider = () => {
       >
         <Stack direction="row" alignItems="center">
           <PlayerControls />
+        </Stack>
+        <Stack direction="row" alignItems="center" spacing={1}>
+          <Volume />
         </Stack>
         <Stack direction="row" spacing={2} justifyContent="space-between">
           <Typography

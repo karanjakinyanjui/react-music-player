@@ -3,8 +3,15 @@ import ReactPlayer from "react-player";
 import { useSongContext } from "../context/songContext";
 
 const Player = () => {
-  const { playing, currentSong, seek, setElapsed, goToNextSong } =
-    useSongContext();
+  const {
+    playing,
+    currentSong,
+    seek,
+    volume,
+    muted,
+    setElapsed,
+    goToNextSong,
+  } = useSongContext();
   const player = useRef(null);
 
   useEffect(() => {
@@ -22,6 +29,8 @@ const Player = () => {
     currentSong.url && (
       <ReactPlayer
         ref={player}
+        volume={volume}
+        muted={muted}
         onProgress={handleProgress}
         playing={playing}
         hidden

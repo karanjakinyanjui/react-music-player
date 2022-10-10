@@ -22,11 +22,23 @@ const SongListItem = ({ song }) => {
             {song.artist}
           </Typography>
         </Stack>
-        <Stack direction="row" marginLeft="auto" justifyContent="center">
-          <IconButton onClick={() => togglePlaying(song)}>
+        <Stack
+          direction="row"
+          marginLeft="auto"
+          justifyContent="center"
+          alignItems="center"
+        >
+          <IconButton
+            height
+            sx={{ height: 40 }}
+            onClick={() => togglePlaying(song)}
+          >
             {isCurrentSong ? <Pause /> : <PlayArrow />}
           </IconButton>
-          <IconButton onClick={() => addSongToPlaylist(song)}>
+          <IconButton
+            sx={{ height: 40 }}
+            onClick={() => addSongToPlaylist(song)}
+          >
             <Save />
           </IconButton>
         </Stack>

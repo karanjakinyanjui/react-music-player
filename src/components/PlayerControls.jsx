@@ -1,4 +1,11 @@
-import { Pause, PlayArrow, SkipNext, SkipPrevious } from "@mui/icons-material";
+import {
+  Pause,
+  PlayArrow,
+  Shuffle,
+  ShuffleOn,
+  SkipNext,
+  SkipPrevious,
+} from "@mui/icons-material";
 import { IconButton } from "@mui/material";
 import React from "react";
 import { useSongContext } from "../context/songContext";
@@ -10,6 +17,8 @@ export function PlayerControls({ fontSize = 40 }) {
     togglePlaying,
     goToNextSong,
     goToPreviousSong,
+    toggleShuffle,
+    shuffle,
   } = useSongContext();
   return (
     <>
@@ -25,6 +34,13 @@ export function PlayerControls({ fontSize = 40 }) {
       </IconButton>
       <IconButton onClick={goToNextSong}>
         <SkipNext sx={{ fontSize }} />
+      </IconButton>
+      <IconButton onClick={toggleShuffle}>
+        {shuffle ? (
+          <ShuffleOn sx={{ fontSize }} />
+        ) : (
+          <Shuffle sx={{ fontSize }} />
+        )}
       </IconButton>
     </>
   );
