@@ -10,9 +10,6 @@ import {
 } from "@mui/material";
 import React from "react";
 import ReactPlayer from "react-player";
-import SoundCloudPlayer from "react-player/soundcloud";
-import YouTubePlayer from "react-player/youtube";
-import { getPlaylist } from "../handlers/playlist";
 import { getTrackInfo } from "../handlers/trackInfo";
 import SongDataForm from "./SongDataForm";
 
@@ -25,9 +22,10 @@ const AddSong = () => {
   const [alertSeverity, setAlertSeverity] = React.useState("success");
   const [listId, setListId] = React.useState("");
 
-  const soundcloud = SoundCloudPlayer.canPlay(url);
-  const youtube = YouTubePlayer.canPlay(url);
-  const canPlay = soundcloud || youtube;
+  // const soundcloud = SoundCloudPlayer.canPlay(url);
+  // const youtube = YouTubePlayer.canPlay(url);
+  ReactPlayer.canPlay(url);
+  const canPlay = ReactPlayer.canPlay(url);
 
   const isPlaylist = url.includes("list=");
 
@@ -75,7 +73,7 @@ const AddSong = () => {
   return (
     <Stack>
       <TextField
-        placeholder="Add Youtube or Soundcloud Url"
+        placeholder="Enter Url to Video or Audio"
         fullwidth="true"
         onChange={(e) => setUrl(e.target.value)}
         margin="normal"
@@ -91,7 +89,7 @@ const AddSong = () => {
           ),
         }}
       />
-      {song.title && (
+      {song.url && (
         <Dialog open={open} onClose={handleClose}>
           {isPlaylist ? (
             <iframe

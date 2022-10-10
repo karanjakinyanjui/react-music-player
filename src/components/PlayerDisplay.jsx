@@ -44,6 +44,8 @@ const SongPlayer = () => {
         <Stack flex={1}>
           <img
             src={song.thumbnail}
+            width={400}
+            height={300}
             style={{ objectFit: "cover" }}
             alt="Song thumbnail"
           />

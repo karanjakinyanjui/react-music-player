@@ -13,6 +13,7 @@ const SongListItem = ({ song }) => {
       <Stack height={150} direction="row">
         <img
           src={song.thumbnail}
+          width={200}
           style={{ objectFit: "cover" }}
           alt="Song thumbnail"
         />
@@ -28,11 +29,7 @@ const SongListItem = ({ song }) => {
           justifyContent="center"
           alignItems="center"
         >
-          <IconButton
-            height
-            sx={{ height: 40 }}
-            onClick={() => togglePlaying(song)}
-          >
+          <IconButton sx={{ height: 40 }} onClick={() => togglePlaying(song)}>
             {isCurrentSong ? <Pause /> : <PlayArrow />}
           </IconButton>
           <IconButton

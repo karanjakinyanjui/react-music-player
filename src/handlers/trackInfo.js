@@ -1,10 +1,17 @@
-export async function getTrackInfo(player) {
-  const nestedPlayer = player.player.player;
+export async function getTrackInfo({ player }) {
+  const nestedPlayer = player.player;
   if (nestedPlayer.getVideoData) {
     return getYoutubeInfo(nestedPlayer);
   } else if (nestedPlayer.getCurrentSound) {
     return await getSoundCloudInfo(nestedPlayer);
   }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      console.log(player);
+      resolve({ duration: player.duration });
+    }, 200);
+  });
 }
 
 const getYoutubeInfo = (player) => {

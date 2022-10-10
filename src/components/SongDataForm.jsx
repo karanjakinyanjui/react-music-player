@@ -40,7 +40,7 @@ const SongDataForm = ({ song, handleClose }) => {
     <>
       <DialogTitle>Edit Song</DialogTitle>
       <Stack padding={2} minWidth={"25vw"} spacing={2}>
-        <img src={song.thumbnail} alt="" />
+        <img src={data.thumbnail} alt="" />
       </Stack>
       <form>
         <Stack padding={2} minWidth={"25vw"} spacing={2}>
@@ -71,6 +71,18 @@ const SongDataForm = ({ song, handleClose }) => {
             required
             name="thumbnail"
             label="Thumbnail"
+            fullwidth="true"
+            margin="normal"
+            type="url"
+          />
+          <TextField
+            value={data.duration}
+            onChange={handleFieldChange}
+            placeholder="Duration (s)"
+            disabled
+            required
+            name="duration"
+            label="Duration (s)"
             fullwidth="true"
             margin="normal"
             type="url"
